@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="Generator" content="EditPlus®">
+    <meta name="Author" content="">
+    <meta name="Keywords" content="">
+    <meta name="Description" content="">
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1.0, maximum-scale = 1.0, user-scalable = 0" />
+    <title>百度网盘视频</title>
+
+</head>
+
+<body>
+    <video id="video" width="100%" controls></video>
+    <div id="app">
+        <!-- <button>test</button> -->
+        视频: <button v-for="video of videoList" @click="btnVideo(video)">{{video}}</button>
+    </div>
+    <script src="./js/hls.js"></script>
+    <script src="./js/vue.min.js"></script>
+    <script src="./js/axios.min.js"></script>
+    <script>
+        let baseUrl = "";
+        axios.defaults.baseURL = baseUrl;
+        let that = null;
+        var app = new Vue({
+            el: '#app',
+            data: {
+                videoList: []
+            },
+            mounted: function () {
+                that = this;
+                this.getVideoList()
+            },
+            methods: {
+                btnVideo: function (video) {
+                    that.loadVideo(video);
+                },
+                getVideoList: function () {
+                    axios.get("/videos").then(function (res) {
+                        that.videoList = res.data;
+                    }).catch(function (err) {
+                        console.debug("err", err);
+                    })
+                },
+                loadVideo: function (videoName) {
+                    var video = document.getElementById('video');
+                    let url = baseUrl+'/videos/'+videoName+'/index.m3u8'
+                    if (Hls.isSupported()) {
+                        var hls = new Hls();
+                        // hls.loadSource('./yuandi/index.m3u8');
+                        hls.loadSource(url);
+                        hls.attachMedia(video);
+                        hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                            video.play();
+                        });
+                    } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                        video.src = url;
+                        video.addEventListener('loadedmetadata', function () {
+                            video.play();
+                        });
+                    }
+                }
+            }
+        })
+
+    </script>
+</body>
+
+</html>

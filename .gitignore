@@ -1,0 +1,8 @@
+.vscode/
+__pycache__/
+
+/video/
+/video-pan/*
+!video-pan/keepthisfile
+
+
