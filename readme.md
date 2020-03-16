@@ -1,8 +1,15 @@
 # 说明
-百度网盘会屏蔽某些敏感的视频, 加密上传可以避免被屏蔽, 但是无法在线播放; m3u8(hls协议)可以播放加密的视频, 两者结合一下或许有点意思..
-本程序是一个测试的演示程序.
+百度网盘会屏蔽某些敏感的视频, 加密上传可以避免被屏蔽, 但是无法在线播放;   
+m3u8(hls协议)可以播放加密的视频;  
+两者结合一下或许有点意思...
+
+本程序是一个测试的演示程序.  
 
 # 启动程序
+程序地址:   
+github: [qiaoxingxing/baidupan-video](https://github.com/qiaoxingxing/baidupan-video)  
+gitee: [qiaoxingxing/baidupan-video](https://gitee.com/qiaoxingxing/baidupan-video)  
+
 python版本: 3.7  
 使用的包: 
 - Flask: web框架
